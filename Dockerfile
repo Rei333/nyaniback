@@ -1,5 +1,10 @@
 FROM node
-EXPOSE 3000
-# COPY . /nyaniback
 WORKDIR /nyaniback
+COPY . .
+RUN npm install
+# COPY . /nyaniback
+EXPOSE 3000
 CMD ["npm", "run", "start"]
+
+# sudo docker build -t nyanimal .
+# sudo docker run --rm -p 3333:3000 nyanimal
