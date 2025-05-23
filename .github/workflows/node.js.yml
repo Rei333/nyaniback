@@ -10,6 +10,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:5.7
+        - name: Set up .env for CI
+          run: |
+            cp .env .env.test
+            echo "APP_ENV=test" >> .env
+            echo "APP_ENV=test" >> .env.test
+            echo "DATABASE_URL=mysql://nyanimal:Sivye7P2Eh&GgY%Z@127.0.0.1:3306/app" >> .env.test
+        # env:
+        #   MYSQL_ROOT_PASSWORD: root
+        #   MYSQL_DATABASE: nyanimal
+        #   MYSQL_USER: nyanimal
+        #   MYSQL_PASSWORD: Sivye7P2Eh&GgY%Z
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
       - uses: actions/checkout@v4
 
@@ -18,6 +40,17 @@ jobs:
         with:
           node-version: 20.x
           cache: 'npm'
+
+      # - name: Wait for MySQL to be ready
+      #   run: |
+      #     until mysqladmin ping -h "127.0.0.1" --user=nyanimal --password=Sivye7P2Eh&GgY%Z --silent; do
+      #       echo "Waiting for MySQL..."
+      #       sleep 3
+      #     done
+
+      # - name: Set up schema
+      #   run: |
+      #     mysql -h 127.0.0.1 -u nyanimal -p "Sivye7P2Eh&GgY%Z" nyanimal < data.sql
 
       - name: Install dependencies
         run: npm install
@@ -29,3 +62,23 @@ jobs:
           wait-on: "http://127.0.0.1:3000/user"
           wait-on-timeout: 60
           command: npm run cypress:run
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Cloner le code
+        uses: actions/checkout@v3
+
+      - name: 🏗️ Builder le projet
+        run: npm run build
+
+      - name: 📤 Déployer via FTP
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: ./dist
+          remoteDir: /public_html/erika
