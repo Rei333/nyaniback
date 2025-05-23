@@ -3,6 +3,7 @@ WORKDIR /nyaniback
 COPY . .
 RUN npm install
 # COPY . /nyaniback
+RUN npm install mysql
 EXPOSE 3000
 CMD ["npm", "run", "start"]
 
