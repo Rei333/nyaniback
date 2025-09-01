@@ -60,15 +60,9 @@ class User {
             if (err) return callback(err);
 
             this.money += price;
-            callback(null, this); //TypeError: callback is not a function
+            callback(null, this);
         });
     }
-
-    // toJSON() { // res.json() use JSON.stringify() who called .toJSON() if defined
-    //     const user = { ...this }; // clone object
-    //     delete user.password;
-    //     return user;
-    // }
 }
 
 module.exports = User;
