@@ -10,7 +10,7 @@ class Furniture {
 	}
 
 	static get(id, callback) {
-		db.query("SELECT * FROM furnitures WHERE id = ?", [id], (err, results) => {
+		db.query("SELECT id, category, variation, price, image FROM furnitures WHERE id = ?", [id], (err, results) => {
 			if (err) return callback(err);
 			if (results.length === 0) return callback(null, null);
 
@@ -19,7 +19,7 @@ class Furniture {
 	}
 
     static get_all(callback) {
-		db.query("SELECT * FROM furnitures", (err, results) => {
+		db.query("SELECT id, category, variation, price, image FROM furnitures", (err, results) => {
 			if (err) return callback(err);
 			if (results.length === 0) return callback(null, null);
 

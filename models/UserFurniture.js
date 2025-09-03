@@ -8,7 +8,7 @@ class UserFurniture extends Furniture {
 	}
 
     static get_user_furnitures(user_id, callback) {
-        db.query("SELECT furnitures.* FROM users_furnitures INNER JOIN furnitures ON users_furnitures.furniture_id = furnitures.id WHERE user_id = ?", [user_id], (err, results) => {
+        db.query("SELECT furnitures.id, furnitures.category, furnitures.variation, furnitures.price, furnitures.image FROM users_furnitures INNER JOIN furnitures ON users_furnitures.furniture_id = furnitures.id WHERE user_id = ?", [user_id], (err, results) => {
             if(err) return callback(err);
 			if(results.length === 0) return callback(null, null);
 
@@ -18,7 +18,7 @@ class UserFurniture extends Furniture {
     }
 
     static get_from_category(category, user_id, callback) {
-        db.query("SELECT furnitures.*, users_furnitures.user_id FROM users_furnitures INNER JOIN furnitures ON users_furnitures.furniture_id = furnitures.id WHERE user_id=? AND category=?", [user_id, category], (err, results) => {
+        db.query("SELECT furnitures.id, furnitures.category, furnitures.variation, furnitures.price, users_furnitures.user_id FROM users_furnitures INNER JOIN furnitures ON users_furnitures.furniture_id = furnitures.id WHERE user_id=? AND category=?", [user_id, category], (err, results) => {
             if(err) return callback(err);
 			if(results.length === 0) return callback(null, null);
 

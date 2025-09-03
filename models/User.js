@@ -35,18 +35,17 @@ class User {
 	}
 
 	static get(id, callback) {
-		db.query("SELECT * FROM users WHERE id = ?", [id], (err, results) => {
+		db.query("SELECT id, pseudo, mail, money FROM users WHERE id = ?", [id], (err, results) => {
 			if (err) return callback(err); // error
 			if (results.length === 0) return callback(null, null); // no error, no result
 
 			const user = new User(results[0]);
-            delete user.password;
 			callback(null, user); // no error, send user
 		});
 	}
 
 	static get_by_pseudo(pseudo, callback) {
-		db.query("SELECT * FROM users WHERE pseudo = ?", [pseudo], (err, results) => {
+		db.query("SELECT id, pseudo, password, mail, money FROM users WHERE pseudo = ?", [pseudo], (err, results) => {
 			if (err) return callback(err);
 			if (results.length === 0) return callback(null, null);
 

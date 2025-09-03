@@ -73,6 +73,6 @@ CREATE TABLE users_foods (
     PRIMARY KEY (user_id, food_id)
 );
 
-INSERT INTO users (pseudo, password, mail) VALUES ("test", "$2y$10$xmbmoDaIkOxEo27KZR.ike5x2MqeNtV2HOOsUppsxvj2ya3jVCBBS", "test@gmail.com");
+INSERT INTO users (pseudo, password, mail) VALUES ("test", "$2b$10$xmbmoDaIkOxEo27KZR.ike5x2MqeNtV2HOOsUppsxvj2ya3jVCBBS", "test@gmail.com");
 
-INSERT INTO furnitures (category, variation, price, image) VALUES ("Bureau", "en bois bleu", 500, "/public/bdd/furnitures/bureau_bois_bleu.png"), ("Bureau", "en bois violet", 500, "/public/bdd/furnitures/bureau_bois_violet.png"), ("Commode", "en bois bleu", 120, "/public/bdd/furnitures/commode_bois_bleu.png"), ("Commode", "en bois brun", 120, "/public/bdd/furnitures/commode_bois_brun.png"), ("Commode", "en bois jaune", 120, "/public/bdd/furnitures/commode_bois_jaune.png");
+INSERT INTO furnitures (category, variation, price, image) VALUES ("Bureau", "en bois bleu", 500, "/bdd/furnitures/bureau_bois_bleu.png"), ("Bureau", "en bois violet", 500, "/bdd/furnitures/bureau_bois_violet.png"), ("Commode", "en bois bleu", 120, "/bdd/furnitures/commode_bois_bleu.png"), ("Commode", "en bois brun", 120, "/bdd/furnitures/commode_bois_brun.png"), ("Commode", "en bois jaune", 120, "/bdd/furnitures/commode_bois_jaune.png");
